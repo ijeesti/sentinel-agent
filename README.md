@@ -28,9 +28,19 @@ Given raw operational events (logs, stack traces, alerts), the system:
 All processing happens **locally** using a self-hosted LLM.
 
 ---
+### 📊 Live Artifacts & Results
+
+Experience the system's output through these generated samples:
+
+* **[🏗️ View Project Architecture](https://github.com/ijeesti/sentinel-agent/blob/main/Results/sentinel-agent-architechutre.png)** *A high-level blueprint of the event-driven, private AI triage pipeline.*
+
+* **[🖥️ View Interactive Dashboard](https://htmlpreview.github.io/?https://github.com/ijeesti/sentinel-agent/blob/main/Results/Dashboard/IncidentReport_20260427_194440.html)** *A single pane of glass for multi-event triage, featuring severity filtering and real-time search.*
+
+* **[📄 View Sample Ticket](https://htmlpreview.github.io/?https://github.com/ijeesti/sentinel-agent/blob/main/Results/TicketSamples/TicketReport_20260428_121851.html)** *Deep-dive analysis of an SMTP failure with sanitized technical details and suggested remediation.*
+
+---
 
 ## 🧠 Example
-
 ### Input (Raw Event)
 ```
 //System.Net.Mail.SmtpException: Failure sending mail
