@@ -62,6 +62,9 @@ All processing happens **locally** using a self-hosted LLM.
 - Email redacted → `[EMAIL_REDACTED]`
 - IP addresses redacted → `[IP_REDACTED]`
 
+You can view a full, AI-generated HTML incident report here:  
+[View Sample Ticket](https://github.com/ijeesti/sentinel-agent/blob/main/Results/TicketSamples/TicketReport_20260428_121851.html)
+
 ---
 
 ## 🏗️ Architecture
@@ -117,7 +120,7 @@ Produces consistent, high-quality incident reports with:
 - Search incidents  
 - Expandable details  
 - Confidence scoring  
-
+* **[Interactive Incident Dashboard](https://htmlpreview.github.io/?https://github.com/ijeesti/sentinel-agent/blob/main/Results/Dashboard/IncidentReport_20260427_194440.html)** *
 ---
 
 ## 📊 Output Artifacts
