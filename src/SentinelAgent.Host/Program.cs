@@ -1,5 +1,4 @@
-﻿using SentinelAgent.Application.Plugins;
-using SentinelAgent.Domain.Domains;
+﻿using SentinelAgent.Domain.Domains;
 using SentinelAgent.Domain.Enums;
 using SentinelAgent.Domain.Interfaces;
 using SentinelAgent.Host;

@@ -1,9 +1,9 @@
-﻿using SentinelAgent.Application.Plugins;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.SemanticKernel;
+using SentinelAgent.Application.Plugins;
 using SentinelAgent.Application.Prompts;
 using SentinelAgent.Domain.Domains;
 using SentinelAgent.Domain.Interfaces;
-using Microsoft.Extensions.Logging;
-using Microsoft.SemanticKernel;
 using System.Text.Json;
 
 namespace SentinelAgent.Application.Agents;
@@ -72,7 +72,9 @@ public sealed class RootCauseAnalyzerAgent(
         {
             var rca = JsonSerializer.Deserialize<RootCauseAnalysisResult>(cleanJson, new JsonSerializerOptions
             {
-                PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true,
+                AllowTrailingCommas = true,
+                ReadCommentHandling = JsonCommentHandling.Skip
             });
 
             return rca ?? throw new InvalidOperationException("Deserialization failed.");
@@ -87,13 +89,16 @@ public sealed class RootCauseAnalyzerAgent(
     // Helper to strip Markdown and extra text
     private static string CleanJsonString(string input)
     {
-        var start = input.IndexOf('{');
-        var end = input.LastIndexOf('}');
+        string rawResponse = input;
+        int startIndex = rawResponse.IndexOf('{');
+        int endIndex = rawResponse.LastIndexOf('}');
 
-        if (start == -1 || end == -1 || end <= start)
-            throw new InvalidOperationException("No valid JSON found in AI response.");
+        if (startIndex != -1 && endIndex != -1 && endIndex > startIndex)
+        {
+            rawResponse = rawResponse.Substring(startIndex, (endIndex - startIndex) + 1);
+        }
 
-        return input.Substring(start, end - start + 1);
+        return rawResponse;
     }
 
     // Helper to avoid repetitive code

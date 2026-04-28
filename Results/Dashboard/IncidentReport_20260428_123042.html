@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AI Incident Dashboard</title>
+
+<style>
+body {
+    font-family: -apple-system, Segoe UI, Roboto;
+    background: #f5f7fb;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    width: 250px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #faad14;
+}
+
+button {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.filter-group button {
+    padding: 8px 16px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+    color: white; /* Default for dark backgrounds */
+}
+
+.filter-group button:hover {
+    opacity: 0.8;
+}
+
+/* Severity specific colors */
+.btn-all { background-color: #64748b; }      /* Slate Gray */
+.btn-critical { background-color: #be123c; } /* Deep Red (Matches your report border) */
+.btn-high { background-color: #f97316; }     /* Orange */
+.btn-medium { background-color: #eab308; color: #000 !important; } /* Yellow */
+.btn-low { background-color: #22c55e; }      /* Green */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.severity-Critical .badge { background: #ff4d4f; color: white; }
+.severity-High .badge { background: #fa8c16; color: white; }
+.severity-Medium .badge { background: #faad14; }
+.severity-Low .badge { background: #52c41a; color: white; }
+
+.details {
+    display: none;
+    margin-top: 10px;
+}
+
+.meta {
+    font-size: 13px;
+    color: #666;
+    margin-top: 5px;
+}
+</style>
+
+<script>
+function filterSeverity(level) {
+    document.querySelectorAll('.card').forEach(function(c) {
+        if (level === 'all' || c.classList.contains('severity-' + level)) {
+            c.style.display = 'block';
+        } else {
+            c.style.display = 'none';
+        }
+    });
+}
+
+function searchTickets() {
+    var value = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(function(c) {
+        var text = c.innerText.toLowerCase();
+        c.style.display = text.includes(value) ? 'block' : 'none';
+    });
+}
+
+function toggleDetails(id) {
+    var el = document.getElementById(id);
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+
+</head>
+<body>
+
+<div class="container">
+<h1>AI Incident Dashboard</h1>
+
+<div class="toolbar">
+   <div class="filter-group">
+    <button class="btn-all" onclick="filterSeverity('all')">All</button>
+    <button class="btn-critical" onclick="filterSeverity('Critical')">Critical</button>
+    <button class="btn-high" onclick="filterSeverity('High')">High</button>
+    <button class="btn-medium" onclick="filterSeverity('Medium')">Medium</button>
+    <button class="btn-low" onclick="filterSeverity('Low')">Low</button>
+</div>
+
+    <input id="search" placeholder="Search..." onkeyup="searchTickets()" />
+</div>            <div class='card severity-Critical'>
+            
+    
+    <div class='header' onclick="toggleDetails('f202d2cd-613e-438e-9011-9ae385fd37ac')">
+        <h3>#0bccfd91-7347-413d-ba29-8581242eac31 — Order not successfully placed</h3>
+        <span class='badge'>Critical</span>
+    </div>
+
+    <div class='meta'>
+        Team: Dev-Team | Source: Unknown
+    </div>
+
+    <div id='f202d2cd-613e-438e-9011-9ae385fd37ac' class='details'>
+
+        <p><strong>Summary:</strong> NullReferenceException occurred at OrderController.cs, line 47.</p>
+
+        <p><strong>Suggested Fix:</strong> Ensure that all referenced objects are properly initialized and used correctly before attempting access to their properties or methods.</p>
+
+        <p><strong>Confidence:</strong> 95%</p>
+
+        <h4>Possible Causes</h4>
+        <ul>
+            <li>Primary cause: Uninitialized or incorrectly used object.</li><li>Alternative cause: Incorrect coding or logic error in the relevant code block.</li>
+        </ul>
+
+        <hr/>
+
+        <p><strong>Technical Detail:</strong></p>
+        <p>Object reference was set to null, causing a NullReferenceException. This is likely due to uninitialized or incorrect usage of the affected object.</p>
+
+    </div>
+</div>            <div class='card severity-Critical'>
+            
+    
+    <div class='header' onclick="toggleDetails('963dc590-9891-4f2d-ab45-22f24692ce5e')">
+        <h3>#411a8505-78eb-4b29-8fbf-abcf1ebb2e59 — Gateway Timeout during Production Scale-out</h3>
+        <span class='badge'>Critical</span>
+    </div>
+
+    <div class='meta'>
+        Team: Dev-Team | Source: Unknown
+    </div>
+
+    <div id='963dc590-9891-4f2d-ab45-22f24692ce5e' class='details'>
+
+        <p><strong>Summary:</strong> Database pool exhaustion caused by gateway timeout at https://payments.api due to inefficient connection handling.</p>
+
+        <p><strong>Suggested Fix:</strong> Implement a configuration or setting to increase the pool size and adjust the timeout settings to better handle slow API responses.</p>
+
+        <p><strong>Confidence:</strong> 80%</p>
+
+        <h4>Possible Causes</h4>
+        <ul>
+            <li>Insufficient database pool size configured</li><li>Inefficient connection handling in API client library</li>
+        </ul>
+
+        <hr/>
+
+        <p><strong>Technical Detail:</strong></p>
+        <p>The database pool was exhausted because the gateway timed out while waiting for a response from the payments API. This is likely due to inefficient connection handling in the API client library, causing it to hold onto connections unnecessarily and prevent other connections from being reaped.</p>
+
+    </div>
+</div>            <div class='card severity-Critical'>
+            
+    
+    <div class='header' onclick="toggleDetails('a410f9b4-60c8-44e5-8e58-cf301a5cbd4b')">
+        <h3>#7bd433ad-78f1-4d2f-af62-0c83dae315e6 — 403 Forbidden: Unauthorized Access to Admin Dashboard</h3>
+        <span class='badge'>Critical</span>
+    </div>
+
+    <div class='meta'>
+        Team: Dev-Team | Source: Unknown
+    </div>
+
+    <div id='a410f9b4-60c8-44e5-8e58-cf301a5cbd4b' class='details'>
+
+        <p><strong>Summary:</strong> User 1042 attempted to access restricted resource due to insufficient permissions.</p>
+
+        <p><strong>Suggested Fix:</strong> Implement role-based access control (RBAC) and ensure accurate user permission assignments.</p>
+
+        <p><strong>Confidence:</strong> 100%</p>
+
+        <h4>Possible Causes</h4>
+        <ul>
+            <li>Insufficient user permissions</li><li>Invalid authorization checks</li>
+        </ul>
+
+        <hr/>
+
+        <p><strong>Technical Detail:</strong></p>
+        <p>The Admin dashboard is protected by authorization checks, which deny access to users without administrative privileges. User 1042 does not possess the required permissions to access this endpoint.</p>
+
+    </div>
+</div>            <div class='card severity-Critical'>
+            
+    
+    <div class='header' onclick="toggleDetails('9f08afa1-e59c-4c96-9b5c-9324027cb04c')">
+        <h3>#45fa2e89-a514-44ae-855b-6e0eeaa1913f — SmtpException Email Notification Failure</h3>
+        <span class='badge'>Critical</span>
+    </div>
+
+    <div class='meta'>
+        Team: Dev-Team | Source: Unknown
+    </div>
+
+    <div id='9f08afa1-e59c-4c96-9b5c-9324027cb04c' class='details'>
+
+        <p><strong>Summary:</strong> SmtpException caused by incorrect SMTP configuration.</p>
+
+        <p><strong>Suggested Fix:</strong> Correct the SMTP configuration in the application properties file: <serverAddress="correct-address"<</p>
+
+        <p><strong>Confidence:</strong> 95%</p>
+
+        <h4>Possible Causes</h4>
+        <ul>
+            <li>Incorrect SMTP server address</li><li>Improperly configured application</li>
+        </ul>
+
+        <hr/>
+
+        <p><strong>Technical Detail:</strong></p>
+        <p>The stack trace suggests that the issue is related to the SMTP notification. Further investigation of the configuration files reveals a typo in the server address. The error message indicates that the connection attempt failed, pointing towards an incorrect configuration.</p>
+
+    </div>
+</div></div></body></html>

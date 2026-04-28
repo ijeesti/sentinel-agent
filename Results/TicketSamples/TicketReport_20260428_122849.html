@@ -1,0 +1,64 @@
+<html>
+<head>
+    <style>
+        /* C# ignores these single braces now! */
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: #f8fafc; 
+            padding: 40px; 
+            line-height: 1.5;
+        }
+        .card { 
+            max-width: 800px; 
+            margin: auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            border-top: 10px solid #be123c;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .badge { 
+            display: inline-block; 
+            padding: 4px 12px; 
+            border-radius: 999px; 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            background: #f1f5f9; 
+        }
+        .content-box { 
+            background: #fdf2f2; 
+            padding: 15px; 
+            border-radius: 6px; 
+            white-space: pre-wrap; /* This preserves the AI's line breaks! */
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <span class="badge"><b>Severity:</b> Critical </span>
+        <h1>Title:403 Forbidden: Unauthorized Access to Admin Dashboard</h1>
+        <h2>Description:User 1042 attempted to access admin dashboard but was restricted due to potential security regression in v2.4.1.</h2>
+        <h3 style="color: #1e293b; border-bottom: 1px solid #e2e8f0;">🔍Analysis</h3>
+        <p><strong>Summary:</strong>Insufficient permissions or security settings preventing authorized users from accessing the admin dashboard.</p>
+
+  <h3 style="color: #2563eb;">RootCause</h3>
+        <div class="content-box" style="background: #eff6ff; color: #1e40af;">
+           <strong> <b>TechnicalDetail:</b> Possible security vulnerability in v2.4.1 allowing unauthorized access to sensitive areas of the application.</strong>
+           <strong> <b>SuggestedFix:</b> Review and update access control policies to prevent unauthorized access.</strong>
+           <strong> <b>ConfidenceScore:</b> 0.85</strong>
+        </div>
+        
+        <h3 style="color: #e11d48;">🚨Steps to Reproduce</h3>
+        <div class="content-box" style="background: #fff1f2; color: #9f1239;">
+            Step 1: Simulate an unauthenticated user attempting to access the admin dashboard
+        </div>
+
+        <h3 style="color: #2563eb;">✅ Acceptance Criteria</h3>
+        <div class="content-box" style="background: #eff6ff; color: #1e40af;">
+            1. Verify that only authorized users have access to the admin dashboard.
+        </div>
+    </div>
+</body>
+</html>

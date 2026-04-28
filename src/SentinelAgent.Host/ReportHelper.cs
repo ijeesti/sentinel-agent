@@ -43,6 +43,7 @@ input {
     width: 250px;
     border-radius: 6px;
     border: 1px solid #ccc;
+    background-color: #faad14;
 }
 
 button {
@@ -52,6 +53,27 @@ button {
     border-radius: 6px;
     cursor: pointer;
 }
+.filter-group button {
+    padding: 8px 16px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+    color: white; /* Default for dark backgrounds */
+}
+
+.filter-group button:hover {
+    opacity: 0.8;
+}
+
+/* Severity specific colors */
+.btn-all { background-color: #64748b; }      /* Slate Gray */
+.btn-critical { background-color: #be123c; } /* Deep Red (Matches your report border) */
+.btn-high { background-color: #f97316; }     /* Orange */
+.btn-medium { background-color: #eab308; color: #000 !important; } /* Yellow */
+.btn-low { background-color: #22c55e; }      /* Green */
 
 .card {
     background: white;
@@ -74,10 +96,10 @@ button {
     font-weight: bold;
 }
 
-.severity-critical .badge { background: #ff4d4f; color: white; }
-.severity-high .badge { background: #fa8c16; color: white; }
-.severity-medium .badge { background: #faad14; }
-.severity-low .badge { background: #52c41a; color: white; }
+.severity-Critical .badge { background: #ff4d4f; color: white; }
+.severity-High .badge { background: #fa8c16; color: white; }
+.severity-Medium .badge { background: #faad14; }
+.severity-Low .badge { background: #52c41a; color: white; }
 
 .details {
     display: none;
@@ -123,13 +145,13 @@ function toggleDetails(id) {
 <h1>AI Incident Dashboard</h1>
 
 <div class="toolbar">
-    <div>
-        <button onclick="filterSeverity('all')">All</button>
-        <button onclick="filterSeverity('Critical')">Critical</button>
-        <button onclick="filterSeverity('High')">High</button>
-        <button onclick="filterSeverity('Medium')">Medium</button>
-        <button onclick="filterSeverity('Low')">Low</button>
-    </div>
+   <div class="filter-group">
+    <button class="btn-all" onclick="filterSeverity('all')">All</button>
+    <button class="btn-critical" onclick="filterSeverity('Critical')">Critical</button>
+    <button class="btn-high" onclick="filterSeverity('High')">High</button>
+    <button class="btn-medium" onclick="filterSeverity('Medium')">Medium</button>
+    <button class="btn-low" onclick="filterSeverity('Low')">Low</button>
+</div>
 
     <input id="search" placeholder="Search..." onkeyup="searchTickets()" />
 </div>
