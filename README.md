@@ -32,10 +32,16 @@ All processing happens **locally** using a self-hosted LLM.
 ## 🧠 Example
 
 ### Input (Raw Event)
-CRITICAL: SmtpException at 10.0.0.42
-Failed to notify user john.doe@external-vendor.com
-
-Stack trace contains sensitive source IP 172.16.254.1
+```
+//System.Net.Mail.SmtpException: Failure sending mail
+// Stack Trace:
+    // at System.Net.Mail.SmtpClient.Send(MailMessage message)
+    // at MyCompany.Services.NotificationService.NotifyVendor() 
+    // in C:\Services\NotificationService.cs:line 42
+    // Source Context: CRITICAL: SmtpException at 10.0.0.42
+    // Failed to notify user john.doe@external-vendor.com
+    // Email relay failure containing PII and internal network topology. source IP 172.16.254.1
+```
 ---
 
 ### Output (Generated Incident)
@@ -139,24 +145,30 @@ ollama run llama3
 dotnet run --project IncidentAgent.Host
 ```
 ### 🧪 Sample Use Cases
-Email service failures (SMTP issues)
-Authentication spikes
-API failures
-Database deadlocks
-Observability pipeline alerts
+
+1. Email service failures (SMTP issues)  
+2. Authentication spikes  
+3. API failures  
+4. Database deadlocks  
+5. Observability pipeline alerts  
+
 ---
+
 ### 🔮 Roadmap
-RAG-based enrichment (incident history + runbooks)
-Duplicate detection and clustering
-Cross-event correlation
-Auto-remediation workflows
-Slack / Teams integration
-Multi-tenant support
+
+1. RAG-based enrichment (incident history + runbooks)  
+2. Duplicate detection and clustering  
+3. Cross-event correlation  
+4. Auto-remediation workflows  
+5. Slack / Teams integration  
+6. Multi-tenant support  
+
 ---
+
 ### 🧭 Design Principles
-Event-first architecture
-Domain-driven design
-AI as a co-pilot, not a black box
-Privacy and control over data
-Extensibility via plugins
----
+
+1. Event-first architecture  
+2. Domain-driven design  
+3. AI as a co-pilot, not a black box  
+4. Privacy and control over data  
+5. Extensibility via plugins  
