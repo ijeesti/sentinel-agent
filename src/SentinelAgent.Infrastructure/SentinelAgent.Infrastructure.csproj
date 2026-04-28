@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.Core" Version="1.54.0" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.74.0" />		
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="10.0.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SentinelAgent.Application\SentinelAgent.Application.csproj" />
+	  <ProjectReference Include="..\SentinelAgent.Domain\SentinelAgent.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

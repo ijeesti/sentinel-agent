@@ -1,0 +1,71 @@
+# Visual Studio / .NET
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.dbmdl
+*.bak
+*.ldf
+*.mdf
+*.pdb
+*.cache
+*.log
+*.vspscc
+*.vssscc
+
+# Entity Framework
+Migrations/
+
+# Publish output
+publish/
+out/
+dist/
+wwwroot/
+
+# Debug
+*.swp
+*.tmp
+*.tmp_proj
+*.tmp_files
+
+# Rider / JetBrains
+.idea/
+
+# Node.js / React
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Docker
+**/docker-compose.override.yml
+**/docker-compose.override.*.yml
+
+# SQLite / local DB
+*.db
+*.sqlite
+sqlite_data/
+
+# Misc
+Thumbs.db
+Desktop.ini
+.DS_Store

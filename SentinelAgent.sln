@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentinelAgent.Domain", "src\SentinelAgent.Domain\SentinelAgent.Domain.csproj", "{8D8C3181-AA2A-455D-AC20-ECB98C9006E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentinelAgent.Infrastructure", "src\SentinelAgent.Infrastructure\SentinelAgent.Infrastructure.csproj", "{A2E2BFEB-F901-4374-BA29-32740606DC7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncidentAgent.Application", "src\SentinelAgent.Application\SentinelAgent.Application.csproj", "{5AC29E81-C819-422F-A747-A85309F6BB88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentinelAgent.Host", "src\SentinelAgent.Host\SentinelAgent.Host.csproj", "{6C6C7472-4A15-4EA7-816C-8FFC740C9950}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D8C3181-AA2A-455D-AC20-ECB98C9006E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D8C3181-AA2A-455D-AC20-ECB98C9006E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D8C3181-AA2A-455D-AC20-ECB98C9006E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D8C3181-AA2A-455D-AC20-ECB98C9006E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E2BFEB-F901-4374-BA29-32740606DC7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E2BFEB-F901-4374-BA29-32740606DC7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E2BFEB-F901-4374-BA29-32740606DC7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E2BFEB-F901-4374-BA29-32740606DC7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AC29E81-C819-422F-A747-A85309F6BB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AC29E81-C819-422F-A747-A85309F6BB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AC29E81-C819-422F-A747-A85309F6BB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AC29E81-C819-422F-A747-A85309F6BB88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C6C7472-4A15-4EA7-816C-8FFC740C9950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C6C7472-4A15-4EA7-816C-8FFC740C9950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C6C7472-4A15-4EA7-816C-8FFC740C9950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C6C7472-4A15-4EA7-816C-8FFC740C9950}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B08E621C-9AAE-4444-AEAD-375786C9691A}
+	EndGlobalSection
+EndGlobal
