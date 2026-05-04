@@ -1,9 +1,5 @@
 ﻿using SentinelAgent.Domain.Domains;
-using SentinelAgent.Domain.Enums;
 using Microsoft.Extensions.Logging;
-using OpenAI.Realtime;
-using System.Diagnostics;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace SentinelAgent.Host;
@@ -23,7 +19,6 @@ internal static class AgentHelper
     """);
 
         var reportBuilder = new StringBuilder();
-       // reportBuilder.Append("<html><head><style>body{font-family:sans-serif; padding:20px;} .card{border:1px solid #ccc; margin-bottom:20px; padding:15px; border-radius:8px;} .status{color:green; font-weight:bold;}</style></head><body><h1>SentinelAgent Analysis Report</h1>");
         ReportHelper.AddReportHeader(reportBuilder);
         foreach (var scenario in scenarios)
         {
@@ -38,37 +33,48 @@ internal static class AgentHelper
                 AdditionalContext: scenario.Context);
 
             var ticket = await agents.Generator.GenerateTicketAsync(genRequest);
-            await agents.Repo.SaveAsync(ticket);
+            if (ticket is null)
+            {
+                var msg = $"Ticket is rejected by Agent. {scenario.Context}";
+                Console.WriteLine(msg);
+                logger.LogWarning("{message}", msg);
+                continue;
+            }
 
-            // 2. Perform RCA
+            await agents.Repo.SaveAsync(ticket);
             var rcaRequest = new AnalyzeFailureRequest(
                 RawFailureInput: scenario.RawInput,
                 InputType: scenario.Type);
 
             var rca = await agents.Analyzer.AnalyzeAsync(rcaRequest);
             Console.WriteLine($"[PROCESSED] Ticket: {ticket.Id} | Title: {ticket.Title}");
-            ReportHelper.AddBody(reportBuilder, rca: rca, ticket:ticket, location: location);
+            ReportHelper.AddBody(reportBuilder, rca: rca, ticket: ticket, location: location);
         }
 
         //Footer...
         reportBuilder.Append("""</div></body></html>""");
         const string reportFolder = "Reports";
         Directory.CreateDirectory(reportFolder);
-        
+
         string fileName = Path.Combine(reportFolder, $"IncidentReport_{DateTime.Now:yyyyMMdd_HHmmss}.html");
-        await File.WriteAllTextAsync(fileName, reportBuilder.ToString());
+        await File.WriteAllTextAsync(fileName, reportBuilder.ToString(), default);
         Console.WriteLine($"\nDemo complete. Full data saved to: {fileName}");
     }
+
     static string ExtractSourceLocation(string stackTrace)
     {
         var match = System.Text.RegularExpressions.Regex.Match(
             stackTrace,
-            @"in\s+(?<file>.+):line\s+(?<line>\d+)");
+            @"in\s+(?<file>.*?):?line\s+(?<line>\d+)",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
         if (!match.Success)
+        {
             return "Unknown";
+        }
 
-        var file = Path.GetFileName(match.Groups["file"].Value);
+        var filePath = match.Groups["file"].Value.Trim();
+        var file = Path.GetFileName(filePath);
         var line = match.Groups["line"].Value;
 
         return $"{file}:{line}";

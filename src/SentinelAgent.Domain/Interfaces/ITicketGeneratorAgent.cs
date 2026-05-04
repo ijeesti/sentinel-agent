@@ -5,7 +5,7 @@ namespace SentinelAgent.Domain.Interfaces;
 
 public interface ITicketGeneratorAgent
 {
-    Task<IncidentTicket> GenerateTicketAsync(
+    Task<IncidentTicket?> GenerateTicketAsync(
         GenerateTicketRequest request,
         CancellationToken cancellationToken = default);
 }

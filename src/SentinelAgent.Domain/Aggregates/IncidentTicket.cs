@@ -11,7 +11,7 @@ namespace SentinelAgent.Domain.Aggregates;
 /// </summary>
 public sealed class IncidentTicket
 {
-    private readonly List<IDomainEvent> _domainEvents = new();
+    private readonly List<IDomainEvent> _domainEvents = [];
 
     public TicketId Id { get; private init; }
     public TicketTitle Title { get; private set; }
@@ -37,7 +37,8 @@ public sealed class IncidentTicket
         AcceptanceCriteria acceptanceCriteria,
         ReproductionSteps reproductionSteps,
         TicketSeverity severity,
-        FailureContext failureContext)
+        FailureContext failureContext,
+        TicketStatus  status= TicketStatus.Open)
     {
         Id = id;
         Title = title;
@@ -47,7 +48,7 @@ public sealed class IncidentTicket
         ReproductionSteps = reproductionSteps;
         Severity = severity;
         FailureContext = failureContext;
-        Status = TicketStatus.Open;
+        Status = status;
         CreatedAt = DateTimeOffset.UtcNow;
 
         _domainEvents.Add(new IncidentTicketCreatedEvent(Id, Title, Severity, CreatedAt));
@@ -60,9 +61,8 @@ public sealed class IncidentTicket
         AcceptanceCriteria acceptanceCriteria,
         ReproductionSteps reproductionSteps,
         TicketSeverity severity,
-        FailureContext failureContext)
-    {
-        return new IncidentTicket(
+        FailureContext failureContext) =>
+        new(
             TicketId.New(),
             title,
             description,
@@ -70,13 +70,15 @@ public sealed class IncidentTicket
             acceptanceCriteria,
             reproductionSteps,
             severity,
-            failureContext);
-    }
-
+            failureContext,
+            TicketStatus.Open);
+    
     public void MarkAsResolved()
     {
         if (Status == TicketStatus.Resolved)
+        {
             throw new InvalidOperationException($"Ticket {Id} is already resolved.");
+        }
 
         Status = TicketStatus.Resolved;
         UpdatedAt = DateTimeOffset.UtcNow;

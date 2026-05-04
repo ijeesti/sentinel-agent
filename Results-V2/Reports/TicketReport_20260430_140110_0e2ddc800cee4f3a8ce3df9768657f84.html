@@ -1,0 +1,66 @@
+<html>
+<head>
+    <style>
+        /* C# ignores these single braces now! */
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: #f8fafc; 
+            padding: 40px; 
+            line-height: 1.5;
+        }
+        .card { 
+            max-width: 800px; 
+            margin: auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            border-top: 10px solid #be123c;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .badge { 
+            display: inline-block; 
+            padding: 4px 12px; 
+            border-radius: 999px; 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            background: #f1f5f9; 
+        }
+        .content-box { 
+            background: #fdf2f2; 
+            padding: 15px; 
+            border-radius: 6px; 
+            white-space: pre-wrap; /* This preserves the AI's line breaks! */
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <span class="badge"><b>Severity:</b> Critical </span>
+        <h1>Title:SmtpException during email relay</h1>
+        <h2>Description:Failed to notify user due to SmtpException. Email relay failure containing PII and internal network topology.</h2>
+        <h3 style="color: #1e293b; border-bottom: 1px solid #e2e8f0;">🔍Analysis</h3>
+        <p><strong>Summary:</strong>Email relay failed due to SmtpException</p>
+
+  <h3 style="color: #2563eb;">RootCause</h3>
+        <div class="content-box" style="background: #eff6ff; color: #1e40af;">
+           <strong> <b>TechnicalDetail:</b> A SmtpException occurred at [IP_REDACTED] when trying to send an email to [EMAIL_REDACTED]. This exception often indicates a problem with the email relay or configuration settings.</strong>
+           <strong> <b>SuggestedFix:</b> Verify that the email relay is configured correctly and troubleshoot any issues related to PII (Personally Identifiable Information) sensitivity and internal network topology exposure.</strong>
+           <strong> <b>ConfidenceScore:</b> 0.85</strong>
+        </div>
+        
+        <h3 style="color: #e11d48;">🚨Steps to Reproduce</h3>
+        <div class="content-box" style="background: #fff1f2; color: #9f1239;">
+            Step 1: Attempt email relay with a sample account (or similar testing procedure) to isolate and reproduce the SmtpException issue.
+Step 2: Verify that all sensitive information, including PII, is masked appropriately within debug logs and any communication channels.
+        </div>
+
+        <h3 style="color: #2563eb;">✅ Acceptance Criteria</h3>
+        <div class="content-box" style="background: #eff6ff; color: #1e40af;">
+            1. Email notifications should be sent successfully without sensitive information exposure.
+2. Internal network topology information should not be exposed in error messages or logs.
+        </div>
+    </div>
+</body>
+</html>

@@ -47,6 +47,8 @@ public static class InfrastructureServiceRegistration
         services.AddTransient<ITicketGeneratorAgent, TicketGeneratorAgent>();
         services.AddTransient<IRootCauseAnalyzerAgent, RootCauseAnalyzerAgent>();
         services.AddTransient<ITicketAwareTestRunner, TicketAwareTestRunnerAgent>();
+        services.AddSingleton<DeduplicationStore>();
+        services.AddSingleton<IAgentDecisionEngine, RuleBasedDecisionEngine>();
         return services;
     }
 

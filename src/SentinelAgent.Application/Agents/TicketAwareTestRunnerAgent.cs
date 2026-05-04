@@ -7,9 +7,10 @@ using System.Text.Json;
 
 namespace SentinelAgent.Application.Agents;
 
-public sealed class TicketAwareTestRunnerAgent(Kernel kernel, ILogger<TicketAwareTestRunnerAgent> logger) : ITicketAwareTestRunner
+public sealed class TicketAwareTestRunnerAgent(
+    Kernel kernel,
+    ILogger<TicketAwareTestRunnerAgent> logger) : ITicketAwareTestRunner
 {
-    private readonly Kernel _kernel = kernel ?? throw new ArgumentNullException(nameof(kernel));
     private readonly ILogger<TicketAwareTestRunnerAgent> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
     public async Task<TestRunResult> RunAsync(
@@ -17,10 +18,13 @@ public sealed class TicketAwareTestRunnerAgent(Kernel kernel, ILogger<TicketAwar
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-
-        _logger.LogInformation(
-            "Evaluating test for ticket {TicketId} against {CriteriaCount} acceptance criteria",
-            request.TicketId, request.AcceptanceCriteria.Count);
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation(
+                "Evaluating test for ticket {TicketId} against {CriteriaCount} acceptance criteria",
+                request.TicketId,
+                request.AcceptanceCriteria.Count);
+        }
 
         // Format acceptance criteria as numbered list for the LLM
         var formattedCriteria = string.Join(
@@ -36,7 +40,7 @@ public sealed class TicketAwareTestRunnerAgent(Kernel kernel, ILogger<TicketAwar
             ["testOutput"] = request.TestOutput ?? string.Empty
         };
 
-        var response = await _kernel.InvokePromptAsync(
+        var response = await kernel.InvokePromptAsync(
             AgentPrompts.TicketAwareTestRunner,
             arguments,
             cancellationToken: cancellationToken);
@@ -44,7 +48,10 @@ public sealed class TicketAwareTestRunnerAgent(Kernel kernel, ILogger<TicketAwar
         var rawJson = response.GetValue<string>()
             ?? throw new InvalidOperationException("LLM returned null response for test evaluation.");
 
-        _logger.LogDebug("Test runner evaluation: {Response}", rawJson);
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            _logger.LogDebug("Test runner evaluation: {Response}", rawJson);
+        }
 
         return ParseTestRunResultFromJson(rawJson);
     }
@@ -61,15 +68,18 @@ public sealed class TicketAwareTestRunnerAgent(Kernel kernel, ILogger<TicketAwar
 
         var criteriaResults = root.TryGetProperty("criteriaResults", out var cr)
             ? cr.EnumerateArray().Select(e => e.GetString()!).ToList()
-            : new List<string>();
+            : [];
 
         return new TestRunResult(
             Passed: root.GetProperty("passed").GetBoolean(),
             Summary: root.GetProperty("summary").GetString()!,
             CriteriaResults: criteriaResults.AsReadOnly(),
-            FailureReason: root.TryGetProperty("failureReason", out var fr) && fr.ValueKind != JsonValueKind.Null
-                ? fr.GetString() : null,
-            SuggestedFix: root.TryGetProperty("suggestedFix", out var sf) && sf.ValueKind != JsonValueKind.Null
-                ? sf.GetString() : null);
+            FailureReason: GetValue("failureReason", root),
+            SuggestedFix: GetValue("suggestedFix", root));
     }
+
+    static string? GetValue(string prop, JsonElement root) =>
+        root.TryGetProperty(prop, out var sf) && sf.ValueKind != JsonValueKind.Null
+        ? sf.GetString()
+        : null;
 }

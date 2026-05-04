@@ -16,23 +16,6 @@ public sealed record AnalyzeFailureRequest(
     FailureInputType InputType,
     string? CodeSnippet = null);
 
-public record RootCauseAnalysisResult(
-    string Summary,
-    string TechnicalDetail,
-    double ConfidenceScore,
-    string? SuggestedFix,
-    IReadOnlyList<string> PossibleCauses)
-{
-    public static RootCauseAnalysisResult CreateFailure(string reason) =>
-        new(
-            Summary: "Error during analysis",
-            TechnicalDetail: reason,
-            ConfidenceScore: 0,
-            SuggestedFix: "Retry the operation or check the logs.",
-            PossibleCauses: new List<string>().AsReadOnly()
-        );
-}
-
 public sealed record TicketAwareTestRequest(
     string TicketId,
     string TicketDescription,
@@ -69,3 +52,6 @@ public record RootCauseAnalysisDto(
     string? SuggestedFix
 );
 
+public record FailureRegisterResult(
+    bool IsNew,
+    int Count);

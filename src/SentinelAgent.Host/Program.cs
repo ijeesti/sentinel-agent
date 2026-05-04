@@ -36,18 +36,22 @@ FailureScenario[] myScenarios = [
         FailureInputType.StackTrace,
         "Customer checkout flow interrupted."),
     new(
-        "TimeoutException: Gateway timeout at https://payments.api... Database pool exhausted.",
-        FailureInputType.CodeDiff,
-        "Scale-out event occurring in Production."),
-    new(
-        "403 Forbidden: User 1042 attempted to access Admin dashboard.",
-        FailureInputType.Manual,
-        "Potential security regression in v2.4.1."),
+        "System.NullReferenceException: Object reference not set... at OrderController.cs:line 47",
+        FailureInputType.StackTrace,
+        "Customer checkout flow interrupted."),
+    //new(
+    //    "TimeoutException: Gateway timeout at https://payments.api... Database pool exhausted.",
+    //    FailureInputType.CodeDiff,
+    //    "Scale-out event occurring in Production."),
+    //new(
+    //    "403 Forbidden: User 1042 attempted to access Admin dashboard.",
+    //    FailureInputType.Manual,
+    //    "Potential security regression in v2.4.1."),
     new(
         @"CRITICAL: SmtpException at 10.0.0.42. 
           Failed to notify user john.doe@external-vendor.com. 
           Stack trace contains sensitive source IP 172.16.254.1.",
-        FailureInputType.StackTrace,
+        FailureInputType.TestOutput,
         "Email relay failure containing PII and internal network topology.")
 ];
 
