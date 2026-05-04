@@ -5,6 +5,76 @@ An event-driven, AI-powered incident triage system that transforms raw operation
 
 ## 🚀 Overview
 
+## 🆕 V2 – Agentic Evolution
+
+This version introduces a major shift from an AI-powered pipeline to a **decision-driven (agentic) system**.
+
+Instead of only analyzing incidents, the system now **decides what action to take** based on context, confidence, and historical patterns.
+
+### 🧠 What Changed
+
+- Introduced an **Agentic Decision Engine**
+- Added **persistent deduplication using EF Core**
+- Implemented **failure fingerprinting (SHA256 + normalization)**
+- Enabled **occurrence tracking for smarter escalation**
+- Improved **LLM reliability with JSON validation and fallback handling**
+- Refactored into a **clean DDD-inspired architecture**
+- Added **unit test coverage for core workflows**
+
+---
+
+### ⚙️ Updated Flow
+##### 🏗️ [View Sentinel Agent V2 Architecture](https://github.com/ijeesti/sentinel-agent/blob/main/Results-V2/sentinel-agent-architecture_V2.png)
+
+Event Sources  
+↓  
+Ingestion Layer (Kafka / RabbitMQ / Logs)  
+↓  
+Normalization & Fingerprinting  
+↓  
+Failure Repository (EF Core)  
+↓  
+AI Orchestration (Semantic Kernel)  
+↓  
+Agentic Decision Engine  
+↓  
+Outputs  
+- HTML Incident Ticket  
+- Interactive Dashboard
+
+---
+
+### 🤖 Decision Engine
+
+The system evaluates each failure and determines the appropriate action:
+
+- ❌ Ignore low-confidence signals  
+- 🔁 Merge duplicate incidents  
+- 🔥 Escalate high-frequency failures  
+- ✅ Create tickets when actionable  
+
+---
+
+### 🧬 Deduplication Strategy
+
+- Normalize failure input (remove noise like line numbers, casing)
+- Generate deterministic fingerprint (SHA256)
+- Store in database (EF Core)
+- Track occurrence count over time
+
+👉 This prevents duplicate tickets and enables intelligent escalation.
+
+---
+
+### 🧪 Example Decision Logic
+
+```csharp
+if (confidence < 0.5) return Ignore;
+if (occurrenceCount > 5) return Escalate;
+if (!isNew) return Merge;
+return CreateTicket;
+```
+
 Modern distributed systems generate massive volumes of logs and alerts. Engineers spend significant time:
 
 - Parsing noisy logs
